@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src: url('fonts/icomoon.eot?i6t1fm');
-    src: url('fonts/icomoon.eot?i6t1fm#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?i6t1fm') format('truetype'),
-    url('fonts/icomoon.woff?i6t1fm') format('woff'),
-    url('fonts/icomoon.svg?i6t1fm#icomoon') format('svg');
+    src: url('fonts/icomoon.eot?rv8ggj');
+    src: url('fonts/icomoon.eot?rv8ggj#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?rv8ggj') format('truetype'),
+    url('fonts/icomoon.woff?rv8ggj') format('woff'),
+    url('fonts/icomoon.svg?rv8ggj#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -27,6 +27,7 @@
 
 .icon-stocks:before {
     content: "\e901";
+    color: #d9e1eb;
 }
 
 .icon-github:before {
