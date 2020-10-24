@@ -1,8 +1,6 @@
 @import "../colors_variables"
 
 .header
-  font-weight: bold
-  background: $header-main-color
   height: 80px
   display: flex
   justify-content: space-between
@@ -12,18 +10,11 @@
     display: flex
     align-items: center
     margin-left: 30px
-    font-size: 30px
 
   &__navigation
     margin-right: 30px
     display: flex
     align-items: center
-    font-size: 24px
-
-  &__logo
-    margin-top: 3px
-    font-size: 24px
-    color: $logo-color
 
   &__item
     margin-left: 3px
@@ -32,3 +23,26 @@
 
   &__item--nav_background:hover
     background: $header-background-item-when-hovering
+
+  &__logo
+    vertical-align: center
+
+  //modifiers
+  &--bold
+    font-weight: bold
+
+  &--desktop-logo-size
+    font-size: 24px
+
+  &--desktop-font-size
+    font-size: 32px
+
+  &--desktop-font-size-small
+    font-size: 28px
+
+  &--header-main-color
+    background: $header-main-color
+
+  &--logo-color
+    color: $logo-color
+
