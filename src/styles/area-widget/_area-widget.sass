@@ -1,0 +1,18 @@
+@import "src/styles/colors_variables"
+
+.area-widget
+  display: grid
+  grid-template: 0.5fr 0.5fr / 0.5fr 0.5fr
+  gap: 30px 30px
+
+  &--desktop-view
+    margin: 30px
+
+  &--grid-2-2
+    grid-template-areas: "widget-start ." ". ."
+
+  &--grid-1-2
+    grid-template-areas: "widget-left widget-start" "widget-left ."
+
+  &--grid-1-1
+    grid-template-areas: "widget-left widget-right" "widget-left widget-right"
