@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-chart-widget',
-  templateUrl: './chart-widget.component.html',
-  styleUrls: ['./chart-widget.component.sass']
+    selector: 'app-chart-widget',
+    templateUrl: './chart-widget.component.html',
+    styleUrls: ['../../styles.css']
 })
 export class ChartWidgetComponent implements OnInit {
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

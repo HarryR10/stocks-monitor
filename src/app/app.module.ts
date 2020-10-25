@@ -26,7 +26,8 @@ import {FooterComponent} from './footer/footer.component';
     bootstrap: [
         AppComponent,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        ChartWidgetComponent
     ]
 })
 export class AppModule {
