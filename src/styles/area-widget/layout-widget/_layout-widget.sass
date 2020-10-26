@@ -1,0 +1,37 @@
+@import "src/styles/colors_variables"
+
+.layout-widget
+  border: 7px solid $widget-border-color
+  border-radius: 30px
+  box-shadow: 0 0px 30px $widget-shadow-color
+  padding: 20px
+  background: $widget-background-color
+  position: relative
+
+  &__out-btn
+    border: none
+    outline-style: none
+    display: flex
+    justify-content: space-around
+    position: absolute
+    z-index: 1
+    left: 100%
+    top: -40px
+    width: 43px
+    height: 43px
+    border-radius: 40px
+    cursor: pointer
+    background-color: $widget-border-color
+    box-shadow: 0 0px 10px $widget-shadow-color
+    transform: rotate(45deg)
+    font-size: 35px
+
+  &__out-btn:hover
+    box-shadow: 0 0px 10px $widget-border-color
+    transform: rotate(135deg)
+    transition: 1s
+
+  &__out-btn:after
+    transform: rotate(180deg)
+  //transition: 1s
+

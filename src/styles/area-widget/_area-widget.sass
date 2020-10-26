@@ -2,12 +2,14 @@
 
 .area-widget
   display: grid
-  grid-template: 0.5fr 0.5fr / 0.5fr 0.5fr
+  grid-template: 1fr 1fr / 1fr 1fr
   gap: 30px 30px
+  align-items: normal
 
   &--desktop-view
-    margin: 30px
+    margin: 40px 70px 30px 70px
 
+  //--grid-[cells in left column]-[cells in right column]
   &--grid-2-2
     grid-template-areas: "widget-start ." ". ."
 
