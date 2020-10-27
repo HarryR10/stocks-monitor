@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-start-widget',
-  templateUrl: './start-widget.component.html',
-  styleUrls: ['./start-widget.component.sass']
+    selector: 'app-start-widget',
+    templateUrl: './start-widget.component.html',
+    styleUrls: ['../../styles.css']
 })
 export class StartWidgetComponent implements OnInit {
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }
