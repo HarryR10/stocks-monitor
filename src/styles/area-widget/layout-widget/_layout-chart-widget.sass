@@ -1,22 +1,23 @@
 @import "src/styles/colors_variables"
-//@import "src/assets/icons/_arrows"
 
 .layout-chart-widget
   display: grid
   grid-template-areas: "up-left-corner up-right-corner" "chart chart" "btn-left-corner btn-right-corner"
-  //column-gap: 100px
 
   &__action
-    margin: 30px 30px 10px 30px
+    display: flex
+    align-items: center
+    justify-content: center
+    margin: 50px 30px 10px 30px
     padding: 20px
     border: none
     border-radius: 10% / 65%
     background: $widget-action-item-background-color
     outline-style: none
-  //box-shadow: 0 12px 16px 0 rgba(0, 76, 255, 0.9), 0 17px 50px 0 rgb(241, 112, 112)
 
   &__action:hover
-    box-shadow: 0 0px 30px $widget-shadow-color
+    height: 48%
+    box-shadow: 0 0px 20px $widget-shadow-color
 
   &__date-last-value
     padding: 20px

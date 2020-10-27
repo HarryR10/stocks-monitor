@@ -8,6 +8,7 @@ import {ChartWidgetComponent} from './chart-widget/chart-widget.component';
 import {NewsWidgetComponent} from './news-widget/news-widget.component';
 import {StartWidgetComponent} from './start-widget/start-widget.component';
 import {FooterComponent} from './footer/footer.component';
+import {SearchComponent} from './search/search.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import {FooterComponent} from './footer/footer.component';
         ChartWidgetComponent,
         NewsWidgetComponent,
         StartWidgetComponent,
-        FooterComponent
+        FooterComponent,
+        SearchComponent
     ],
     imports: [
         BrowserModule,
@@ -27,7 +29,8 @@ import {FooterComponent} from './footer/footer.component';
         AppComponent,
         HeaderComponent,
         FooterComponent,
-        ChartWidgetComponent
+        ChartWidgetComponent,
+        SearchComponent
     ]
 })
 export class AppModule {
