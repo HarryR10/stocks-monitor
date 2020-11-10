@@ -2,19 +2,27 @@
 
 .area-widget
   display: grid
-  grid-template: 1fr 1fr / 1fr 1fr
   gap: 30px 30px
   align-items: normal
+  margin: 40px 70px 30px 70px
+  //grid-template-columns: 1fr 1fr
+  //grid-auto-flow: column
 
-  &--desktop-view
-    margin: 40px 70px 30px 70px
+  //&--desktop-view
+  //  margin: 40px 70px 30px 70px
 
-  //--grid-[cells in left column]-[cells in right column]
-  &--grid-2-2
-    grid-template-areas: "widget-start ." ". ."
+  &--grid-horizontal
+    grid-template-areas: "widget-left widget-right"
 
-  &--grid-1-2
-    grid-template-areas: "widget-left widget-start" "widget-left ."
+  &--grid-vertical
+    grid-template-areas: "widget-left" "widget-right"
 
-  &--grid-1-1
-    grid-template-areas: "widget-left widget-right" "widget-left widget-right"
+  ////--grid-[cells in left column]-[cells in right column]
+  //&--grid-2-2
+  //  grid-template-areas: "widget-start ." ". ."
+  //
+  //&--grid-1-2
+  //  grid-template-areas: "widget-left widget-start" "widget-left ."
+  //
+  //&--grid-1-1
+  //  grid-template-areas: "widget-left widget-right" "widget-left widget-right"

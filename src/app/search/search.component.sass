@@ -1,0 +1,33 @@
+@import "colors_variables"
+
+.search-component
+  display: flex
+  justify-content: space-around
+  align-items: center
+
+  &__label
+    margin: 10px
+
+  &__btn
+    border: none
+    outline-style: none
+    background-color: $widget-action-search-background-color
+    border-radius: 25% / 55%
+    padding: 7px 10px 10px 10px
+    margin: 5px
+
+
+  &__field
+    border-radius: 8% / 60%
+    outline-style: none
+    border: none
+    padding: 7px 7px 10px 7px
+
+  //TODO: проблема с "поднятием" кнопки, как layout-chart-widget__action
+  &__btn:hover
+    box-shadow: 0 0px 20px $widget-shadow-color
+
+
+  //modifiers
+  &__btn--desktop-font-size
+    font-size: 32px
