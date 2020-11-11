@@ -1,11 +1,12 @@
-@import "src/styles/colors_variables"
+@import "../colors_variables"
 
 .layout-widget
   border: 7px solid $widget-border-color
   border-radius: 30px
-  box-shadow: 0 0px 30px $widget-shadow-color
+  box-shadow: 0 0 30px $widget-shadow-color
   padding: 20px
   position: relative
+  //overflow: hidden
 
   //TODO: есть проблема с отображением в Safari. Как провильно центрировать "+"?
   &__out-btn
@@ -22,15 +23,15 @@
     top: -40px
     width: 43px
     height: 43px
-    border-radius: 50px
+    border-radius: 50%
     cursor: pointer
     background-color: $widget-border-color
-    box-shadow: 0 0px 10px $widget-shadow-color
+    box-shadow: 0 0 10px $widget-shadow-color
     transform: rotate(45deg)
     font-size: 34px
 
   &__out-btn:hover
-    box-shadow: 0 0px 10px $widget-border-color
+    box-shadow: 0 0 10px $widget-border-color
     transform: rotate(135deg)
     transition: 1s
 
@@ -41,7 +42,8 @@
     background: $body-background-color
 
   &--cell-widget-left
-    grid-area: widget-left
+    grid-column-start: 1
 
   &--cell-widget-right
-    grid-area: widget-right
+    grid-column-start: 2
+//grid-column-start: 1
