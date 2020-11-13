@@ -1,0 +1,13 @@
+<!--TODO: перенести часть разметки и стилей-->
+<!--TODO: удалить стиль layout-widget--background-color-light-->
+<!--<div class="layout-widget-->
+<!--            layout-widget&#45;&#45;background-color-light-->
+<!--            general&#45;&#45;font-color-->
+<!--            general&#45;&#45;font-type">-->
+<div class="layout-widget
+            general--font-color
+            general--font-type"
+     [class.layout-widget--background-color-dark]="isDark">
+    <div *ngIf="isCanBeClosed" class="layout-widget__out-btn general--bold">+</div>
+    <ng-content></ng-content>
+</div>
