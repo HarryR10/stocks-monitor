@@ -4,11 +4,17 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {HeaderComponent} from './header/header.component';
 import {AppComponent} from './app.component';
-import {ChartWidgetComponent} from './chart-widget/chart-widget.component';
-import {NewsWidgetComponent} from './news-widget/news-widget.component';
-import {StartWidgetComponent} from './start-widget/start-widget.component';
+import {ChartWidgetComponent} from './widget-area/widget/chart-widget/chart-widget.component';
+import {NewsWidgetComponent} from './widget-area/widget/news-widget/news-widget.component';
+import {StartWidgetComponent} from './widget-area/widget/start-widget/start-widget.component';
 import {FooterComponent} from './footer/footer.component';
-import {SearchComponent} from './search/search.component';
+import {SearchComponent} from './widget-area/widget/chart-widget/search/search.component';
+import {AboutComponent} from './about/about.component';
+import {WidgetComponent} from './widget-area/widget/widget.component';
+import {RouterModule} from "@angular/router";
+import {WidgetAreaComponent} from './widget-area/widget-area.component';
+import {ChartComponent} from './widget-area/widget/chart-widget/chart/chart.component';
+import {PersonalLoadService} from "./widget-area/personal-load-service/personal-load.service";
 
 @NgModule({
     declarations: [
@@ -18,19 +24,24 @@ import {SearchComponent} from './search/search.component';
         NewsWidgetComponent,
         StartWidgetComponent,
         FooterComponent,
-        SearchComponent
+        SearchComponent,
+        AboutComponent,
+        WidgetComponent,
+        WidgetAreaComponent,
+        ChartComponent
     ],
     imports: [
         BrowserModule,
-        AppRoutingModule
+        AppRoutingModule,
+        RouterModule
     ],
-    providers: [],
+    providers: [
+        PersonalLoadService
+    ],
     bootstrap: [
         AppComponent,
         HeaderComponent,
-        FooterComponent,
-        ChartWidgetComponent,
-        SearchComponent
+        FooterComponent
     ]
 })
 export class AppModule {
