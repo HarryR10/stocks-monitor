@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
     selector: 'app-chart-widget',
@@ -7,10 +7,12 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ChartWidgetComponent implements OnInit {
 
+    @Input() public index
     constructor() {
     }
 
     ngOnInit(): void {
+        // console.log(this.index)
     }
 
 }

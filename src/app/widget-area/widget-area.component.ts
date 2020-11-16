@@ -12,8 +12,6 @@ export class WidgetAreaComponent implements OnInit {
 
     private _cellsOnLoad: IAreaCell[];
 
-    // public
-
     public getCells(): IAreaCell[] {
         return this._cellsOnLoad;
     }
