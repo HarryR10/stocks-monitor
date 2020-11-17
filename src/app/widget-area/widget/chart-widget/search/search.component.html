@@ -3,7 +3,8 @@
       action="" method="GET">
     <div class="search-component__form">
         <label for="search" class="search-component__label">Find&nbsp;index:</label>
-        <input type="text" class="search-component__field" id="search" required maxlength="30">
+        <input [formControl]="searchControl" type="text" class="search-component__field" id="search" required
+               maxlength="30">
         <button type="button" class="search-component__btn
                                      general--font-color">Search
         </button>

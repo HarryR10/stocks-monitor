@@ -17,6 +17,8 @@ import {ChartComponent} from './widget-area/widget/chart-widget/chart/chart.comp
 import {PersonalLoadService} from "./widget-area/personal-load-service/personal-load.service";
 import {environment} from 'src/environments/environment';
 import {STOCKS_API_KEY} from "./app-injection-tokens";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 @NgModule({
     declarations: [
@@ -35,7 +37,10 @@ import {STOCKS_API_KEY} from "./app-injection-tokens";
     imports: [
         BrowserModule,
         AppRoutingModule,
-        RouterModule
+        RouterModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule
     ],
     providers: [
         PersonalLoadService,

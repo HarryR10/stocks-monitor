@@ -6,10 +6,11 @@
 <!--                general&#45;&#45;bold">+-->
 <!--    </div>-->
 
-<ng-container *ngIf="index !== ''">
+<!--TODO: поменять местами условия-->
+<ng-container *ngIf="index === ''">
     <app-chart [index]="index"></app-chart>
 </ng-container>
-<ng-container *ngIf="index === ''">
+<ng-container *ngIf="index !== ''">
     <app-search></app-search>
 </ng-container>
 
