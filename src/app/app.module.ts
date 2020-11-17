@@ -15,6 +15,8 @@ import {RouterModule} from "@angular/router";
 import {WidgetAreaComponent} from './widget-area/widget-area.component';
 import {ChartComponent} from './widget-area/widget/chart-widget/chart/chart.component';
 import {PersonalLoadService} from "./widget-area/personal-load-service/personal-load.service";
+import {environment} from 'src/environments/environment';
+import {STOCKS_API_KEY} from "./app-injection-tokens";
 
 @NgModule({
     declarations: [
@@ -36,7 +38,18 @@ import {PersonalLoadService} from "./widget-area/personal-load-service/personal-
         RouterModule
     ],
     providers: [
-        PersonalLoadService
+        PersonalLoadService,
+
+        {
+            provide: STOCKS_API_KEY,
+            useValue: environment.hasOwnProperty('stocksApiKey') ? environment['stocksApiKey'] : 'demo'
+            // function () {
+            // if (!environment.hasOwnProperty('stocksApiKey')) {
+            //     return 'demo';
+            // } else {
+            //     return environment['stocksApiKey'];
+            // }
+        }
     ],
     bootstrap: [
         AppComponent,
@@ -44,5 +57,6 @@ import {PersonalLoadService} from "./widget-area/personal-load-service/personal-
         FooterComponent
     ]
 })
+
 export class AppModule {
 }
