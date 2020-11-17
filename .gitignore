@@ -5,3 +5,6 @@ node_modules
 
 #configs
 .editorconfig
+
+#env
+environments
