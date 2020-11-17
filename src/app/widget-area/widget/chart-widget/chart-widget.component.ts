@@ -27,13 +27,17 @@ export class ChartWidgetComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
+        // if (this.index !== '') {
+        //     console.log('none')
+        // }
+
         this.getAlphaVantageJsonData();
 
         const svg = d3.select("div.chart-area").append("svg")
             .attr("viewBox", [0, 0, this._width, this._height]);
 
 
-        // console.log(this.index)
     }
 
     private getAlphaVantageJsonData(

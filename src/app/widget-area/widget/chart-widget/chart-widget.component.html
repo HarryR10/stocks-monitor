@@ -6,7 +6,12 @@
 <!--                general&#45;&#45;bold">+-->
 <!--    </div>-->
 
-<app-search></app-search>
-<app-chart></app-chart>
+<ng-container *ngIf="index !== ''">
+    <app-chart [index]="index"></app-chart>
+</ng-container>
+<ng-container *ngIf="index === ''">
+    <app-search></app-search>
+</ng-container>
+
 
 <!--</div>-->
