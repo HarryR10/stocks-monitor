@@ -19,6 +19,8 @@ import {environment} from 'src/environments/environment';
 import {STOCKS_API_KEY} from "./app-injection-tokens";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {ArrayType} from "@angular/compiler";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
     declarations: [
@@ -36,6 +38,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     ],
     imports: [
         BrowserModule,
+        CommonModule,
         AppRoutingModule,
         RouterModule,
         FormsModule,

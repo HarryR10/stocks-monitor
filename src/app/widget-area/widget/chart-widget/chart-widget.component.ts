@@ -58,7 +58,7 @@ export class ChartWidgetComponent implements OnInit {
             .then(r => {
                 this.mapTimeSeries(r).then(r2 => {
                     for (let el of r2.values()) {
-                        console.log(el["1. open"])
+                        // console.log(el["1. open"])
                     }
                 })
             })

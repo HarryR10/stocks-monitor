@@ -2,12 +2,35 @@
              search-component__btn--desktop-font-size"
       action="" method="GET">
     <div class="search-component__form">
-        <label for="search" class="search-component__label">Find&nbsp;index:</label>
+        <label for="search" class="search-component__label">Type&nbsp;index&nbsp;here:</label>
         <input [formControl]="searchControl" type="text" class="search-component__field" id="search" required
                maxlength="30">
-        <button type="button" class="search-component__btn
-                                     general--font-color">Search
-        </button>
+        <!--        <button type="button" class="search-component__btn-->
+        <!--                                     general&#45;&#45;font-color">Search-->
+        <!--        </button>-->
     </div>
-
 </form>
+
+<div>
+    <table>
+        <caption>Searching results:</caption>
+        <thead>
+        <tr>
+            <th>Index</th>
+            <th>Company name</th>
+            <th>Type</th>
+            <th>Region</th>
+            <th>Currency</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let company of this.searchResult">
+            <td>{{company.symbol}}</td>
+            <td>{{company.name}}</td>
+            <td>{{company.type}}</td>
+            <td>{{company.region}}</td>
+            <td>{{company.currency}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
