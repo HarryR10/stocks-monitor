@@ -90,7 +90,7 @@ export class SearchComponent implements OnInit {
         return result;
     }
 
-    public sendChosenCompany(company: Company) {
+    public useChosenCompany(company: Company) {
         this.loading = true;
         this.chooseIndex.emit(company);
         this.renderComponent.emit(false);

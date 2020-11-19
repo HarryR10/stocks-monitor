@@ -14,9 +14,11 @@
 <!--    <app-search></app-search>-->
 <!--</ng-container>-->
 
-<app-search (chooseIndex)="printEvent($event)"
+<app-search (chooseIndex)="setCurrentCompany($event)"
             (renderComponent)="setShowSearchComponent($event)"
             *ngIf="showSearchComponent"></app-search>
-<app-chart *ngIf="!showSearchComponent"></app-chart>
+<app-chart (renderComponent)="setShowSearchComponent($event)"
+           *ngIf="!showSearchComponent"
+           [currentCompany]="currentCompany"></app-chart>
 
 <!--</div>-->

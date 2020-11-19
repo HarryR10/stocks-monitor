@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
     selector: 'app-chart',
@@ -7,7 +7,9 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ChartComponent implements OnInit {
 
-    @Input() public index
+    // @Input() public index
+    @Input() public currentCompany;
+    @Output() public renderComponent = new EventEmitter<boolean>();
 
     constructor() {
     }
@@ -15,4 +17,8 @@ export class ChartComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    public backToSearch() {
+        this.renderComponent.emit(true);
+        console.log("backToSearch")
+    }
 }

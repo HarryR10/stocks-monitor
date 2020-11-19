@@ -24,7 +24,7 @@
                     layout-chart-widget__chart--center">
         <!--        <img src="http://placekitten.com/g/800/580" alt="place for chart">-->
         <div class="chart-area"></div>
-        <div>{{index}}</div>
+        <div>{{currentCompany.name}}</div>
     </div>
     <button class="layout-chart-widget__action
                        layout-chart-widget__download-btn
@@ -34,6 +34,7 @@
     <button class="layout-chart-widget__action
                        layout-chart-widget__change-stock-btn
                        layout-chart-widget__change-stock-btn--right-corner
-                       general--font-color" type="button">change stock
+                       general--font-color" type="button"
+            (click)="backToSearch()">back to search
     </button>
 </div>

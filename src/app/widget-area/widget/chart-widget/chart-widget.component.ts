@@ -14,9 +14,15 @@ export class ChartWidgetComponent implements OnInit {
     @Input() public index
 
     public showSearchComponent: boolean = true;
-    
+
     public setShowSearchComponent(value: boolean) {
         this.showSearchComponent = value;
+    }
+
+    public currentCompany: Company;
+
+    public setCurrentCompany(value: Company) {
+        this.currentCompany = value;
     }
 
     private _source = "https://www.alphavantage.co/";

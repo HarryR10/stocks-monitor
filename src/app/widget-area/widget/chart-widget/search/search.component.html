@@ -31,7 +31,7 @@
         </tbody>
     </table>
     <button *ngIf="selectedCompany !== undefined"
-            (click)="sendChosenCompany(selectedCompany)"
+            (click)="useChosenCompany(selectedCompany)"
             [disabled]="loading"
             type="button" class="search-component__btn general--font-color">
         Use {{selectedCompany.symbol}} index
