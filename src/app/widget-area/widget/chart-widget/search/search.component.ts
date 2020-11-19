@@ -1,4 +1,4 @@
-import {Component, Injector, Input, OnInit, Output} from '@angular/core';
+import {Component, Injector, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {FormControl} from "@angular/forms";
 import {debounceTime} from "rxjs/operators";
@@ -13,9 +13,16 @@ import {Company} from "../models/company";
 })
 export class SearchComponent implements OnInit {
 
-    // @Input() public source;
-    @Output() public index;
+    @Output() public chooseIndex = new EventEmitter<Company>();
+    @Output() public renderComponent = new EventEmitter<boolean>();
+
     public searchControl: FormControl;
+    public loading: boolean = false;
+
+    private _source: string = "https://www.alphavantage.co/";
+    private _httpParams: HttpParams = new HttpParams()
+        .set("function", "SYMBOL_SEARCH")
+        .set("apikey", this._env.get(STOCKS_API_KEY));
 
     private _searchResult: Array<Company>;
     public get searchResult(): Array<Company> {
@@ -30,11 +37,6 @@ export class SearchComponent implements OnInit {
     public set selectedCompany(value: Company) {
         this._selectedCompany = value;
     }
-
-    private _source: string = "https://www.alphavantage.co/";
-    private _httpParams: HttpParams = new HttpParams()
-        .set("function", "SYMBOL_SEARCH")
-        .set("apikey", this._env.get(STOCKS_API_KEY));
 
     constructor(private _http: HttpClient,
                 private _env: Injector) {
@@ -52,6 +54,11 @@ export class SearchComponent implements OnInit {
         // //searchControl.valid
         // //searchControl.errors
 
+        this.load();
+        this.searchControl.setValue('tencent');
+    }
+
+    private load() {
         this.searchControl = new FormControl();
         this.searchControl.valueChanges
             .pipe(debounceTime(1000))
@@ -68,7 +75,6 @@ export class SearchComponent implements OnInit {
                         }
                     })
             });
-        this.searchControl.setValue('tencent');
     }
 
     private pathBuilder(value: string) {
@@ -84,7 +90,11 @@ export class SearchComponent implements OnInit {
         return result;
     }
 
-    public print(value: string) {
-        console.log(value)
+    public sendChosenCompany(company: Company) {
+        this.loading = true;
+        this.chooseIndex.emit(company);
+        this.renderComponent.emit(false);
+        this.loading = false;
+
     }
 }

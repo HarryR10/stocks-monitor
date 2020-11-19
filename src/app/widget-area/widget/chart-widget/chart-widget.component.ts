@@ -2,6 +2,7 @@ import {Component, Injector, Input, OnInit} from '@angular/core';
 import * as d3 from 'd3'
 import {IDictionary} from "../../../generic-interfaces/idictionary";
 import {STOCKS_API_KEY} from "../../../app-injection-tokens";
+import {Company} from "./models/company";
 
 @Component({
     selector: 'app-chart-widget',
@@ -11,6 +12,12 @@ import {STOCKS_API_KEY} from "../../../app-injection-tokens";
 export class ChartWidgetComponent implements OnInit {
 
     @Input() public index
+
+    public showSearchComponent: boolean = true;
+    
+    public setShowSearchComponent(value: boolean) {
+        this.showSearchComponent = value;
+    }
 
     private _source = "https://www.alphavantage.co/";
     private _params: IDictionary<string> = {
@@ -23,10 +30,6 @@ export class ChartWidgetComponent implements OnInit {
     private _width = 200;
     private _height = 200;
 
-
-    // constructor() {
-    // }
-
     private readonly config: string;
 
     constructor(injector: Injector) {
@@ -34,19 +37,10 @@ export class ChartWidgetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
-
         console.log(this.config);
-
-        // if (this.index !== '') {
-        //     console.log('none')
-        // }
-
         this.getAlphaVantageJsonData();
-
         const svg = d3.select("div.chart-area").append("svg")
             .attr("viewBox", [0, 0, this._width, this._height]);
-
 
     }
 
@@ -81,4 +75,10 @@ export class ChartWidgetComponent implements OnInit {
         return (result.slice(0, -1));
 
     }
+
+    public printEvent(company: Company) {
+        console.log(company.name);
+    }
+
+
 }
