@@ -12,7 +12,7 @@
 </form>
 
 <div>
-    <table>
+    <table class="tab">
         <caption>Searching results:</caption>
         <thead>
         <tr>
@@ -24,7 +24,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let company of this.searchResult">
+        <tr *ngFor="let company of this.searchResult" (click)="selectedCompany = company">
             <td>{{company.symbol}}</td>
             <td>{{company.name}}</td>
             <td>{{company.type}}</td>
@@ -33,4 +33,9 @@
         </tr>
         </tbody>
     </table>
+    <button *ngIf="selectedCompany !== undefined"
+            (click)="print(selectedCompany.symbol)"
+            type="button" class="search-component__btn general--font-color">
+        Use {{selectedCompany.symbol}} index
+    </button>
 </div>

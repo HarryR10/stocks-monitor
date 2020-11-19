@@ -22,6 +22,15 @@ export class SearchComponent implements OnInit {
         return this._searchResult;
     }
 
+    private _selectedCompany: Company;
+    public get selectedCompany() {
+        return this._selectedCompany;
+    }
+
+    public set selectedCompany(value: Company) {
+        this._selectedCompany = value;
+    }
+
     private _source: string = "https://www.alphavantage.co/";
     private _httpParams: HttpParams = new HttpParams()
         .set("function", "SYMBOL_SEARCH")
@@ -55,6 +64,7 @@ export class SearchComponent implements OnInit {
                             return;
                         } else {
                             this._searchResult = this.searchResultBuilder(result);
+                            this.selectedCompany = this._searchResult[0];
                         }
                     })
             });
@@ -72,5 +82,9 @@ export class SearchComponent implements OnInit {
             result.push(new Company(i));
         }
         return result;
+    }
+
+    public print(value: string) {
+        console.log(value)
     }
 }
