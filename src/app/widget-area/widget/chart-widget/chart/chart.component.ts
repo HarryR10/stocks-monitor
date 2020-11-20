@@ -3,6 +3,8 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {STOCKS_API_KEY} from "../../../../app-injection-tokens";
 import {sources} from "../../../enums/sources-enum";
 import {Company} from "../models/company";
+import {types} from "util";
+import {tap} from "rxjs/operators";
 
 @Component({
     selector: 'app-chart',
@@ -24,20 +26,21 @@ export class ChartComponent implements OnInit {
     }
 
     public downloadCsv() {
+
         this.loading = true;
         this._http.get(this.pathBuilder(this.currentCompany.symbol, 'csv'),
             {responseType: 'blob'})
             .subscribe(
                 (blob) => {
-                    const downloadURL = URL.createObjectURL(blob);
-                    window.open(downloadURL);
+                    let link = document.createElement('a');
+                    link.download = `${this.currentCompany.symbol}_TIME_SERIES_INTRADAY`;
+                    link.href = URL.createObjectURL(new Blob([blob], {type: "text/csv"}));
+                    link.click();
+                    URL.revokeObjectURL(link.href);
                     this.loading = false
                 }
             );
-        
-        // let link = document.createElement('a');
-        // link.href = this.pathBuilder(this.pathBuilder(this.currentCompany.symbol, 'csv'));
-        // link.click();
+
     }
 
     private pathBuilder(symbol: string, datatype: string = 'json') {
