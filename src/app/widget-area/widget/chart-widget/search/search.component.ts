@@ -14,7 +14,7 @@ import {sources} from "../../../enums/sources-enum";
 })
 export class SearchComponent implements OnInit {
 
-    @Output() public chooseIndex = new EventEmitter<Company>();
+    @Output() public chooseSymbol = new EventEmitter<Company>();
     @Output() public renderComponent = new EventEmitter<boolean>();
 
     public searchControl: FormControl;
@@ -92,7 +92,7 @@ export class SearchComponent implements OnInit {
 
     public useChosenCompany(company: Company) {
         this.loading = true;
-        this.chooseIndex.emit(company);
+        this.chooseSymbol.emit(company);
         this.renderComponent.emit(false);
         this.loading = false;
 

@@ -11,7 +11,7 @@ import {Company} from "./models/company";
 })
 export class ChartWidgetComponent implements OnInit {
 
-    @Input() public index
+    @Input() public symbol
 
     public showSearchComponent: boolean = true;
 

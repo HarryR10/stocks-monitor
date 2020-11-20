@@ -27,14 +27,18 @@
         <div>{{currentCompany.name}}</div>
     </div>
     <button class="layout-chart-widget__action
-                       layout-chart-widget__download-btn
-                       layout-chart-widget__download-btn--left-corner
-                       general--font-color" type="button">download .csv
+            layout-chart-widget__download-btn
+            layout-chart-widget__download-btn--left-corner
+            general--font-color"
+            type="button"
+            [disabled]="loading"
+            (click)="downloadCsv()">download .csv
     </button>
     <button class="layout-chart-widget__action
-                       layout-chart-widget__change-stock-btn
-                       layout-chart-widget__change-stock-btn--right-corner
-                       general--font-color" type="button"
+            layout-chart-widget__change-stock-btn
+            layout-chart-widget__change-stock-btn--right-corner
+            general--font-color"
+            type="button"
             (click)="backToSearch()">back to search
     </button>
 </div>
