@@ -4,6 +4,7 @@ import {FormControl} from "@angular/forms";
 import {debounceTime} from "rxjs/operators";
 import {STOCKS_API_KEY} from "../../../../app-injection-tokens";
 import {Company} from "../models/company";
+import {sources} from "../../../enums/sources-enum";
 
 
 @Component({
@@ -18,11 +19,6 @@ export class SearchComponent implements OnInit {
 
     public searchControl: FormControl;
     public loading: boolean = false;
-
-    private _source: string = "https://www.alphavantage.co/";
-    private _httpParams: HttpParams = new HttpParams()
-        .set("function", "SYMBOL_SEARCH")
-        .set("apikey", this._env.get(STOCKS_API_KEY));
 
     private _searchResult: Array<Company>;
     public get searchResult(): Array<Company> {
@@ -78,8 +74,12 @@ export class SearchComponent implements OnInit {
     }
 
     private pathBuilder(value: string) {
-        let params = this._httpParams.set("keywords", value);
-        return `${this._source}query?${params.toString()}`;
+
+        let params: HttpParams = new HttpParams()
+            .set("function", "SYMBOL_SEARCH")
+            .set("apikey", this._env.get(STOCKS_API_KEY))
+            .set("keywords", value);
+        return `${sources.stock}query?${params.toString()}`;
     }
 
     private searchResultBuilder(companies: Object): Array<Company> {
