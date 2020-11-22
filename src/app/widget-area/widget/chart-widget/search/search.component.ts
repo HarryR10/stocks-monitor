@@ -66,6 +66,8 @@ export class SearchComponent implements OnInit {
                         } else if (result.hasOwnProperty('Error Message')) {
                             return;
                         } else {
+                            //TODO: выделить отдельную функцию, проверяющую ошибки (enum?)
+                            //Note: "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency. Thank you!"
                             this._searchResult = this.searchResultBuilder(result);
                             this.selectedCompany = this._searchResult[0];
                         }

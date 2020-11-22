@@ -21,6 +21,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {ArrayType} from "@angular/compiler";
 import {CommonModule} from "@angular/common";
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import {CommonModule} from "@angular/common";
         AboutComponent,
         WidgetComponent,
         WidgetAreaComponent,
-        ChartComponent
+        ChartComponent,
+        SettingsComponent
     ],
     imports: [
         BrowserModule,
