@@ -14,14 +14,14 @@ import {WidgetComponent} from './widget-area/widget/widget.component';
 import {RouterModule} from "@angular/router";
 import {WidgetAreaComponent} from './widget-area/widget-area.component';
 import {ChartComponent} from './widget-area/widget/chart-widget/chart/chart.component';
-import {PersonalLoadService} from "./widget-area/personal-load-service/personal-load.service";
+import {PersonalViewLoadService} from "./services/personal-load-service/personal-view-load.service";
 import {environment} from 'src/environments/environment';
 import {STOCKS_API_KEY} from "./app-injection-tokens";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {ArrayType} from "@angular/compiler";
 import {CommonModule} from "@angular/common";
-import { SettingsComponent } from './settings/settings.component';
+import {SettingsComponent} from './settings/settings.component';
 
 @NgModule({
     declarations: [
@@ -48,7 +48,7 @@ import { SettingsComponent } from './settings/settings.component';
         HttpClientModule
     ],
     providers: [
-        PersonalLoadService,
+        PersonalViewLoadService,
 
         {
             provide: STOCKS_API_KEY,

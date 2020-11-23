@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {IAreaCell} from "../iarea-cell";
+import {IAreaCell} from "../../widget-area/iarea-cell";
 
 @Injectable({
     providedIn: 'root'
 })
-export class PersonalLoadService {
+export class PersonalViewLoadService {
 
     //TODO: перенести в старт-виджет
     private _cellsOnInit: IAreaCell[] = [

@@ -1,13 +1,13 @@
 import {TestBed} from '@angular/core/testing';
 
-import {PersonalLoadService} from './personal-load.service';
+import {PersonalViewLoadService} from './personal-view-load.service';
 
 describe('PersonalLoadService', () => {
-    let service: PersonalLoadService;
+    let service: PersonalViewLoadService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});
-        service = TestBed.inject(PersonalLoadService);
+        service = TestBed.inject(PersonalViewLoadService);
     });
 
     it('should be created', () => {

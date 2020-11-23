@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PersonalLoadService} from "./personal-load-service/personal-load.service";
+import {PersonalViewLoadService} from "../services/personal-load-service/personal-view-load.service";
 import {IAreaCell} from "./iarea-cell";
 import {IWidget} from "./widget/iwidget";
 
@@ -16,7 +16,7 @@ export class WidgetAreaComponent implements OnInit {
         return this._cellsOnLoad;
     }
 
-    constructor(private _personalLoadService: PersonalLoadService) {
+    constructor(private _personalLoadService: PersonalViewLoadService) {
     }
 
     ngOnInit(): void {
