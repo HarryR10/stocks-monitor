@@ -8,7 +8,7 @@ import {ChartWidgetComponent} from './widget-area/widget/chart-widget/chart-widg
 import {NewsWidgetComponent} from './widget-area/widget/news-widget/news-widget.component';
 import {StartWidgetComponent} from './widget-area/widget/start-widget/start-widget.component';
 import {FooterComponent} from './footer/footer.component';
-import {SearchComponent} from './widget-area/widget/chart-widget/search/search.component';
+import {SearchComponent} from './widget-area/widget/general-components/search/search.component';
 import {AboutComponent} from './about/about.component';
 import {WidgetComponent} from './widget-area/widget/widget.component';
 import {RouterModule} from "@angular/router";

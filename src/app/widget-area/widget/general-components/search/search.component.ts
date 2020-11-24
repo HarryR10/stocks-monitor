@@ -3,7 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {FormControl} from "@angular/forms";
 import {debounceTime} from "rxjs/operators";
 import {STOCKS_API_KEY} from "../../../../app-injection-tokens";
-import {Company} from "../models/company";
+import {Company} from "../../chart-widget/models/company";
 import {sources} from "../../../enums/sources-enum";
 
 
