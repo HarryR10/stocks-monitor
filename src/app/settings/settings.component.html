@@ -2,7 +2,9 @@
       action="" method="GET">
     <div class="">
         <label for="alphaVantageApiKey" class="">Your Alpha Vantage API key:</label>
-        <input [formControl]="alphaVantageApiKey" type="text" class="" id="alphaVantageApiKey" required
+        <!--        <input [formControl]="alphaVantageApiKey" type="text" class="" id="alphaVantageApiKey" required-->
+        <!--               maxlength="30">-->
+        <input type="text" class="" id="alphaVantageApiKey" required
                maxlength="30">
         <div>
             <div *ngIf="isCorrectAlphaVantageApiKey">Correct!</div>
@@ -12,7 +14,9 @@
 
     <div class="">
         <label for="iexApiKey" class="">Your iex cloud API key:</label>
-        <input [formControl]="iexApiKey" type="text" class="" id="iexApiKey" required
+        <!--        <input [formControl]="iexApiKey" type="text" class="" id="iexApiKey" required-->
+        <!--               maxlength="30">-->
+        <input type="text" class="" id="iexApiKey" required
                maxlength="30">
         <div>
             <div *ngIf="isCorrectIexApiKey">Correct!</div>
@@ -22,7 +26,9 @@
 
     <div class="">
         <label for="iexSandboxApiKey" class="">Your sandbox iex cloud API key:</label>
-        <input [formControl]="iexSandboxApiKey" type="text" class="" id="iexSandboxApiKey" required
+        <!--        <input [formControl]="iexSandboxApiKey" type="text" class="" id="iexSandboxApiKey" required-->
+        <!--               maxlength="30">-->
+        <input type="text" class="" id="iexSandboxApiKey" required
                maxlength="30">
         <div>
             <div *ngIf="isCorrectIexSandboxApiKey">Correct!</div>
