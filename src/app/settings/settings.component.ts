@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.sass']
+    selector: 'app-settings',
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.sass']
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+    public alphaVantageApiKey: string;
+    public iexApiKey: string;
+    public iexSandboxApiKey: string;
 
-  ngOnInit(): void {
-  }
+    public isCorrectAlphaVantageApiKey: boolean;
+    public isCorrectIexApiKey: boolean;
+    public isCorrectIexSandboxApiKey: boolean;
+
+    constructor() {
+    }
+
+    ngOnInit(): void {
+    }
 
 }
