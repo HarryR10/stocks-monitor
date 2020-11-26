@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {IAreaCell} from "../../widget-area/iarea-cell";
+import {IAreaCell} from "../../components/widget-area/iarea-cell";
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +25,9 @@ export class PersonalViewLoadService {
         if (localStorage.length === 0) {
             return this._cellsOnInit
         } else {
-            return JSON.parse(localStorage.getItem(this.key))
+            //TODO: временное решение
+            return this._cellsOnInit
+            // return JSON.parse(localStorage.getItem(this.key))
         }
     }
 

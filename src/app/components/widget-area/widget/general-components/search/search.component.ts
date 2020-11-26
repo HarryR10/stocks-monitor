@@ -2,9 +2,11 @@ import {Component, Injector, Input, OnInit, Output, EventEmitter} from '@angular
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {FormControl} from "@angular/forms";
 import {debounceTime} from "rxjs/operators";
-import {STOCKS_API_KEY} from "../../../../app-injection-tokens";
+import {STOCKS_API_KEY} from "../../../../../app-injection-tokens";
 import {Company} from "../../chart-widget/models/company";
 import {sources} from "../../../enums/sources-enum";
+import {PathBuilder} from "../../../../../utils/path-builder";
+import {AlphaVantageResponseReader} from "../../../../../utils/alpha-vantage-response-reader";
 
 
 @Component({
@@ -54,35 +56,33 @@ export class SearchComponent implements OnInit {
         this.searchControl.setValue('tencent');
     }
 
+    //TODO: поменять на switchMap 2й
     private load() {
         this.searchControl = new FormControl();
         this.searchControl.valueChanges
             .pipe(debounceTime(1000))
             .subscribe((value) => {
-                this._http.get(this.pathBuilder(value))
+                this._http.get(PathBuilder.alphaVantageSearch(value, this._env.get(STOCKS_API_KEY)))
                     .subscribe(result => {
-                        if (result.hasOwnProperty('Information')) {
-                            alert(result['Information']);
-                        } else if (result.hasOwnProperty('Error Message')) {
+                        let reader = new AlphaVantageResponseReader(result);
+                        if (!reader.isOkResponse) {
+                            alert(reader.message);
                             return;
-                        } else {
-                            //TODO: выделить отдельную функцию, проверяющую ошибки (enum?)
-                            //Note: "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency. Thank you!"
-                            this._searchResult = this.searchResultBuilder(result);
-                            this.selectedCompany = this._searchResult[0];
                         }
+                        this._searchResult = this.searchResultBuilder(result);
+                        this.selectedCompany = this._searchResult[0];
                     })
             });
     }
 
-    private pathBuilder(value: string) {
-
-        let params: HttpParams = new HttpParams()
-            .set("function", "SYMBOL_SEARCH")
-            .set("apikey", this._env.get(STOCKS_API_KEY))
-            .set("keywords", value);
-        return `${sources.stock}query?${params.toString()}`;
-    }
+    // private pathBuilder(value: string) {
+    //
+    //     let params: HttpParams = new HttpParams()
+    //         .set("function", "SYMBOL_SEARCH")
+    //         .set("apikey", this._env.get(STOCKS_API_KEY))
+    //         .set("keywords", value);
+    //     return `${sources.alphaVantage}query?${params.toString()}`;
+    // }
 
     private searchResultBuilder(companies: Object): Array<Company> {
         let result = new Array<Company>();

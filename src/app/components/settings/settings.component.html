@@ -1,0 +1,48 @@
+<form class="">
+    <div>
+        <ng-container *ngFor="let msg of userMessages">
+            <div>{{msg}}</div>
+        </ng-container>
+    </div>
+
+    <div class="">
+        <label for="AVantageKey" class="">Your Alpha Vantage API key:</label>
+        <input type="text" class="" id="AVantageKey"
+               (focusout)="verifyAlphaVantageKey()" required
+               [(ngModel)]="alphaVantageApiKey.keyValue" name="AVantageKey">
+        <div>
+            <div *ngIf="alphaVantageApiKey.isValid">Correct!</div>
+            <div *ngIf="!alphaVantageApiKey.isValid">Key isn't correct!</div>
+        </div>
+    </div>
+
+    <div class="">
+        <label for="iexKey" class="">Your iex cloud API key:</label>
+        <input type="text" class="" id="iexKey"
+               (focusout)="verifyIexApiKey()" required
+               [(ngModel)]="iexApiKey.keyValue" name="iexKey">
+        <div>
+            <div *ngIf="iexApiKey.isValid">Correct!</div>
+            <div *ngIf="!iexApiKey.isValid">Key isn't correct!</div>
+        </div>
+    </div>
+
+    <div class="">
+        <label for="iexSandboxKey" class="">Your sandbox iex cloud API key:</label>
+        <input type="text" class="" id="iexSandboxKey"
+               (focusout)="verifyIexSandboxApiKey()" required
+               [(ngModel)]="iexSandboxApiKey.keyValue" name="iexSandboxKey">
+        <div>
+            <div *ngIf="iexSandboxApiKey.isValid">Correct!</div>
+            <div *ngIf="!iexSandboxApiKey.isValid">Key isn't correct!</div>
+        </div>
+    </div>
+
+    <button type="submit"
+            [disabled]="!(iexSandboxApiKey.isValid
+        && iexApiKey.isValid
+        && alphaVantageApiKey.isValid)"
+            (click)="saveKeys()">
+        Save API keys to Local storage
+    </button>
+</form>

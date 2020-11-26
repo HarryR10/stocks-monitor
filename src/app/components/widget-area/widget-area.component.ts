@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PersonalViewLoadService} from "../services/personal-load-service/personal-view-load.service";
+import {PersonalViewLoadService} from "../../services/personal-load-service/personal-view-load.service";
 import {IAreaCell} from "./iarea-cell";
 import {IWidget} from "./widget/iwidget";
 

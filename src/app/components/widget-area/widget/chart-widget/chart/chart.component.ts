@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Injector, Input, OnInit, Output} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {STOCKS_API_KEY} from "../../../../app-injection-tokens";
+import {STOCKS_API_KEY} from "../../../../../app-injection-tokens";
 import {sources} from "../../../enums/sources-enum";
 import {Company} from "../models/company";
 import {types} from "util";
@@ -51,7 +51,7 @@ export class ChartComponent implements OnInit {
             .set("interval", "5min")
             .set("apikey", this._env.get(STOCKS_API_KEY))
             .set("datatype", datatype)
-        return `${sources.stock}query?${params.toString()}`;
+        return `${sources.alphaVantage}query?${params.toString()}`;
     }
 
     public backToSearch() {
