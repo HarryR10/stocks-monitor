@@ -2,7 +2,6 @@ import {Component, Injector, Input, OnInit, Output, EventEmitter} from '@angular
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {FormControl} from "@angular/forms";
 import {debounceTime} from "rxjs/operators";
-import {STOCKS_API_KEY} from "../../../../../app-injection-tokens";
 import {Company} from "../../chart-widget/models/company";
 import {sources} from "../../../enums/sources-enum";
 import {PathBuilder} from "../../../../../utils/path-builder";
@@ -62,7 +61,8 @@ export class SearchComponent implements OnInit {
         this.searchControl.valueChanges
             .pipe(debounceTime(1000))
             .subscribe((value) => {
-                this._http.get(PathBuilder.alphaVantageSearch(value, this._env.get(STOCKS_API_KEY)))
+                // this._http.get(PathBuilder.alphaVantageSearch(value, this._env.get('demo')))
+                this._http.get(PathBuilder.alphaVantageSearch(value, 'demo'))
                     .subscribe(result => {
                         let reader = new AlphaVantageResponseReader(result);
                         if (!reader.isOkResponse) {

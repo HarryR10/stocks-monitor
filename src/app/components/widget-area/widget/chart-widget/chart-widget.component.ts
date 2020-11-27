@@ -1,7 +1,6 @@
 import {Component, Injector, Input, OnInit} from '@angular/core';
 import * as d3 from 'd3'
 import {IDictionary} from "../../../../generic-interfaces/idictionary";
-import {STOCKS_API_KEY} from "../../../../app-injection-tokens";
 import {Company} from "./models/company";
 
 @Component({
@@ -39,7 +38,8 @@ export class ChartWidgetComponent implements OnInit {
     private readonly config: string;
 
     constructor(injector: Injector) {
-        this.config = injector.get(STOCKS_API_KEY);
+        // this.config = injector.get("demo");
+        this.config = "demo";
     }
 
     ngOnInit(): void {

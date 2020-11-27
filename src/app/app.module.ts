@@ -16,7 +16,7 @@ import {WidgetAreaComponent} from './components/widget-area/widget-area.componen
 import {ChartComponent} from './components/widget-area/widget/chart-widget/chart/chart.component';
 import {PersonalViewLoadService} from "./services/personal-load-service/personal-view-load.service";
 import {environment} from 'src/environments/environment';
-import {STOCKS_API_KEY} from "./app-injection-tokens";
+import {ALPHA_VANTAGE_API_SOURCE, IEX_API_SOURCE, IEX_SANDBOX_API_SOURCE} from "./app-injection-tokens";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {ArrayType} from "@angular/compiler";
@@ -51,17 +51,18 @@ import {ApiKeyLoadServiceService} from "./services/api-key-load-service/api-key-
     providers: [
         PersonalViewLoadService,
         ApiKeyLoadServiceService,
-
         {
-            provide: STOCKS_API_KEY,
-            useValue: environment.hasOwnProperty('stocksApiKey') ? environment['stocksApiKey'] : 'demo'
-            // function () {
-            // if (!environment.hasOwnProperty('stocksApiKey')) {
-            //     return 'demo';
-            // } else {
-            //     return environment['stocksApiKey'];
-            // }
-        }
+            provide: ALPHA_VANTAGE_API_SOURCE,
+            useValue: environment['alphaVantageSource']
+        },
+        {
+            provide: IEX_API_SOURCE,
+            useValue: environment['iexCloudSource']
+        },
+        {
+            provide: IEX_SANDBOX_API_SOURCE,
+            useValue: environment['iexCloudSandboxSource']
+        },
     ],
     bootstrap: [
         AppComponent,

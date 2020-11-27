@@ -50,6 +50,8 @@ export class SettingsComponent implements OnInit {
         }
     }
 
+    //TODO: поместить в сервис
+    //TODO: searchControl.valid ?
     public verifyAlphaVantageKey() {
         this._http.get(PathBuilder
             .alphaVantageSearch("IBM", this.alphaVantageApiKey.keyValue))

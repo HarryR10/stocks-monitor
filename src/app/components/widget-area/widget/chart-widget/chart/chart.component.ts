@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Injector, Input, OnInit, Output} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {STOCKS_API_KEY} from "../../../../../app-injection-tokens";
 import {sources} from "../../../enums/sources-enum";
 import {Company} from "../models/company";
 import {types} from "util";
@@ -49,7 +48,8 @@ export class ChartComponent implements OnInit {
             .set("function", "TIME_SERIES_INTRADAY")
             .set("symbol", symbol)
             .set("interval", "5min")
-            .set("apikey", this._env.get(STOCKS_API_KEY))
+            // .set("apikey", this._env.get("demo"))
+            .set("apikey", "demo")
             .set("datatype", datatype)
         return `${sources.alphaVantage}query?${params.toString()}`;
     }

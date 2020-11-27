@@ -2,9 +2,12 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+//TODO: перенести сюда адреса аpi
 export const environment = {
     production: false,
-
+    alphaVantageSource: "https://www.alphavantage.co/",
+    iexCloudSource: "https://cloud.iexapis.com/stable/",
+    iexCloudSandboxSource: "https://sandbox.iexapis.com/stable/"
 };
 
 /*
