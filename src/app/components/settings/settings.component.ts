@@ -3,9 +3,7 @@ import {ApiKeyLoadServiceService} from "../../services/api-key-load-service/api-
 import {ApiKeyNotLoadError} from "../../errors/api-key-not-load-error";
 import {ApiKey} from "../../models/apiKey";
 import {HttpClient} from "@angular/common/http";
-import {sources} from "../widget-area/enums/sources-enum";
-import {FormControl} from "@angular/forms";
-import {PathBuilder} from "../../utils/path-builder";
+import {PathBuilderService} from "../../services/path-builder-service/path-builder.service";
 
 @Component({
     selector: 'app-settings',
@@ -24,7 +22,8 @@ export class SettingsComponent implements OnInit {
     public userMessages = new Array<string>();
 
     constructor(private _loader: ApiKeyLoadServiceService,
-                private _http: HttpClient) {
+                private _http: HttpClient,
+                private _pathBuilder: PathBuilderService) {
     }
 
     ngOnInit(): void {
@@ -53,7 +52,7 @@ export class SettingsComponent implements OnInit {
     //TODO: поместить в сервис
     //TODO: searchControl.valid ?
     public verifyAlphaVantageKey() {
-        this._http.get(PathBuilder
+        this._http.get(this._pathBuilder
             .alphaVantageSearch("IBM", this.alphaVantageApiKey.keyValue))
             .subscribe(result => {
                 if (result.hasOwnProperty('bestMatches')) {
@@ -65,7 +64,7 @@ export class SettingsComponent implements OnInit {
     }
 
     public verifyIexApiKey() {
-        this._http.get(PathBuilder
+        this._http.get(this._pathBuilder
             .iexIntraday("IBM", this.iexApiKey.keyValue))
             .subscribe({
                 next: _ => this.iexApiKey.isValid = true,
@@ -74,7 +73,7 @@ export class SettingsComponent implements OnInit {
     }
 
     public verifyIexSandboxApiKey() {
-        this._http.get(PathBuilder
+        this._http.get(this._pathBuilder
             .iexSearch("IBM", this.iexSandboxApiKey.keyValue))
             .subscribe({
                 next: _ => this.iexSandboxApiKey.isValid = true,

@@ -1,7 +1,6 @@
 import {TestBed, async} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppComponent} from './app.component';
-import {ALPHA_VANTAGE_API_KEY} from "./app-injection-tokens";
 
 describe('AppComponent', () => {
     beforeEach(async(() => {

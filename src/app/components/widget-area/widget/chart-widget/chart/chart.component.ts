@@ -1,9 +1,8 @@
 import {Component, EventEmitter, Injector, Input, OnInit, Output} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {sources} from "../../../enums/sources-enum";
 import {Company} from "../models/company";
-import {types} from "util";
-import {tap} from "rxjs/operators";
+import {PathBuilderService} from "../../../../../services/path-builder-service/path-builder.service";
+import {ALPHA_VANTAGE_API_SOURCE} from "../../../../../app-injection-tokens";
 
 @Component({
     selector: 'app-chart',
@@ -18,16 +17,18 @@ export class ChartComponent implements OnInit {
     public loading: boolean = false;
 
     constructor(private _http: HttpClient,
-                private _env: Injector) {
+                private _env: Injector,
+                private _pathBuilder: PathBuilderService) {
     }
 
     ngOnInit(): void {
     }
 
     public downloadCsv() {
-
+        //TODO: изменить логику в соответствии с закоментированной строкой
         this.loading = true;
         this._http.get(this.pathBuilder(this.currentCompany.symbol, 'csv'),
+            // this._http.get(this._pathBuilder.iexIntradayCsvDownload(this.currentCompany.symbol, "demo"),
             {responseType: 'blob'})
             .subscribe(
                 (blob) => {
@@ -43,6 +44,7 @@ export class ChartComponent implements OnInit {
     }
 
     private pathBuilder(symbol: string, datatype: string = 'json') {
+        let source = this._env.get(ALPHA_VANTAGE_API_SOURCE);
 
         let params: HttpParams = new HttpParams()
             .set("function", "TIME_SERIES_INTRADAY")
@@ -51,7 +53,7 @@ export class ChartComponent implements OnInit {
             // .set("apikey", this._env.get("demo"))
             .set("apikey", "demo")
             .set("datatype", datatype)
-        return `${sources.alphaVantage}query?${params.toString()}`;
+        return `${source}query?${params.toString()}`;
     }
 
     public backToSearch() {

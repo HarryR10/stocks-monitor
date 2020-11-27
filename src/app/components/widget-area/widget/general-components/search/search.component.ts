@@ -3,9 +3,8 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {FormControl} from "@angular/forms";
 import {debounceTime} from "rxjs/operators";
 import {Company} from "../../chart-widget/models/company";
-import {sources} from "../../../enums/sources-enum";
-import {PathBuilder} from "../../../../../utils/path-builder";
 import {AlphaVantageResponseReader} from "../../../../../utils/alpha-vantage-response-reader";
+import {PathBuilderService} from "../../../../../services/path-builder-service/path-builder.service";
 
 
 @Component({
@@ -36,7 +35,8 @@ export class SearchComponent implements OnInit {
     }
 
     constructor(private _http: HttpClient,
-                private _env: Injector) {
+                private _env: Injector,
+                private _pathBuilder: PathBuilderService) {
     }
 
 
@@ -62,7 +62,8 @@ export class SearchComponent implements OnInit {
             .pipe(debounceTime(1000))
             .subscribe((value) => {
                 // this._http.get(PathBuilder.alphaVantageSearch(value, this._env.get('demo')))
-                this._http.get(PathBuilder.alphaVantageSearch(value, 'demo'))
+                // this._http.get(PathBuilder.alphaVantageSearch(value, 'demo'))
+                this._http.get(this._pathBuilder.alphaVantageSearch(value, 'demo'))
                     .subscribe(result => {
                         let reader = new AlphaVantageResponseReader(result);
                         if (!reader.isOkResponse) {
