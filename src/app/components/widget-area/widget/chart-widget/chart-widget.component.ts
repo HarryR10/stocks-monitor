@@ -2,6 +2,7 @@ import {Component, Injector, Input, OnInit} from '@angular/core';
 import * as d3 from 'd3'
 import {IDictionary} from "../../../../generic-interfaces/idictionary";
 import {Company} from "./models/company";
+import {KeysKeeperService} from "../../../../services/keys-keeper-service/keys-keeper.service";
 
 @Component({
     selector: 'app-chart-widget',
@@ -41,6 +42,10 @@ export class ChartWidgetComponent implements OnInit {
         // this.config = injector.get("demo");
         this.config = "demo";
     }
+
+    // constructor(private _keys: KeysKeeperService) {
+    //     this.config = this._keys.alphaVantageApiKey.keyValue;
+    // }
 
     ngOnInit(): void {
         console.log(this.config);

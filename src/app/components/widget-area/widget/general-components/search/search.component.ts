@@ -5,6 +5,7 @@ import {debounceTime} from "rxjs/operators";
 import {Company} from "../../chart-widget/models/company";
 import {AlphaVantageResponseReader} from "../../../../../utils/alpha-vantage-response-reader";
 import {PathBuilderService} from "../../../../../services/path-builder-service/path-builder.service";
+import {KeysKeeperService} from "../../../../../services/keys-keeper-service/keys-keeper.service";
 
 
 @Component({
@@ -36,7 +37,8 @@ export class SearchComponent implements OnInit {
 
     constructor(private _http: HttpClient,
                 private _env: Injector,
-                private _pathBuilder: PathBuilderService) {
+                private _pathBuilder: PathBuilderService,
+                private _keys: KeysKeeperService) {
     }
 
 
@@ -61,9 +63,7 @@ export class SearchComponent implements OnInit {
         this.searchControl.valueChanges
             .pipe(debounceTime(1000))
             .subscribe((value) => {
-                // this._http.get(PathBuilder.alphaVantageSearch(value, this._env.get('demo')))
-                // this._http.get(PathBuilder.alphaVantageSearch(value, 'demo'))
-                this._http.get(this._pathBuilder.alphaVantageSearch(value, 'demo'))
+                this._http.get(this._pathBuilder.alphaVantageSearch(value, this._keys.alphaVantageApiKey.keyValue))
                     .subscribe(result => {
                         let reader = new AlphaVantageResponseReader(result);
                         if (!reader.isOkResponse) {

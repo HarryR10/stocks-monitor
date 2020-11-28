@@ -11,17 +11,26 @@ import {IexApiKey} from "../../models/iex-api-key";
 })
 export class ApiKeyLoadServiceService {
 
-    public loadUserApiKey(key: ApiKey): string {
-        let result = localStorage.getItem(key.keyName);
-
-        if (result !== null) {
-            return result;
-        } else {
-            throw new ApiKeyNotLoadError(`${key.keyDescription} not load from Local storage`, key);
-        }
-    }
-
     public saveUserApiKey(key: ApiKey): void {
         localStorage.setItem(key.keyName, key.keyValue);
+    }
+
+    public loadUserApiKey(key: ApiKey, action: Function = () => {
+    }) {
+        const handler = (key) => {
+            let result = localStorage.getItem(key.keyName);
+
+            if (result !== null) {
+                return result;
+            } else {
+                throw new ApiKeyNotLoadError(`${key.keyDescription} not load from Local storage`, key);
+            }
+        }
+
+        try {
+            key.keyValue = handler(key);
+        } catch (e) {
+            action(e);
+        }
     }
 }
