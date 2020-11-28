@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiKeyLoadServiceService} from "../../services/api-key-load-service/api-key-load-service.service";
 import {ApiKeyNotLoadError} from "../../errors/api-key-not-load-error";
-import {ApiKey} from "../../models/apiKey";
+import {ApiKey} from "../../models/api-key";
 import {HttpClient} from "@angular/common/http";
 import {PathBuilderService} from "../../services/path-builder-service/path-builder.service";
+import {KeysKeeperService} from "../../services/keys-keeper-service/keys-keeper.service";
 
 @Component({
     selector: 'app-settings',
@@ -12,18 +13,16 @@ import {PathBuilderService} from "../../services/path-builder-service/path-build
 })
 export class SettingsComponent implements OnInit {
 
-    public alphaVantageApiKey
-        = new ApiKey("alphaVantageApiKey", "Alpha Vantage api key");
-    public iexApiKey
-        = new ApiKey("iexApiKey", "IEX cloud api key");
-    public iexSandboxApiKey
-        = new ApiKey("iexSandboxApiKey", "IEX cloud sandbox api key");
+    public alphaVantageApiKey = this._keys.alphaVantageApiKey;
+    public iexApiKey = this._keys.iexApiKey;
+    public iexSandboxApiKey = this._keys.iexSandboxApiKey;
 
     public userMessages = new Array<string>();
 
     constructor(private _loader: ApiKeyLoadServiceService,
                 private _http: HttpClient,
-                private _pathBuilder: PathBuilderService) {
+                private _pathBuilder: PathBuilderService,
+                private _keys: KeysKeeperService) {
     }
 
     ngOnInit(): void {
@@ -49,36 +48,16 @@ export class SettingsComponent implements OnInit {
         }
     }
 
-    //TODO: поместить в сервис
-    //TODO: searchControl.valid ?
     public verifyAlphaVantageKey() {
-        this._http.get(this._pathBuilder
-            .alphaVantageSearch("IBM", this.alphaVantageApiKey.keyValue))
-            .subscribe(result => {
-                if (result.hasOwnProperty('bestMatches')) {
-                    this.alphaVantageApiKey.isValid = true;
-                } else {
-                    this.alphaVantageApiKey.isValid = false;
-                }
-            });
+        this.alphaVantageApiKey.verify(this._http, this._pathBuilder)
     }
 
     public verifyIexApiKey() {
-        this._http.get(this._pathBuilder
-            .iexIntraday("IBM", this.iexApiKey.keyValue))
-            .subscribe({
-                next: _ => this.iexApiKey.isValid = true,
-                error: _ => this.iexApiKey.isValid = false
-            });
+        this.iexApiKey.verify(this._http, this._pathBuilder)
     }
 
     public verifyIexSandboxApiKey() {
-        this._http.get(this._pathBuilder
-            .iexSearch("IBM", this.iexSandboxApiKey.keyValue))
-            .subscribe({
-                next: _ => this.iexSandboxApiKey.isValid = true,
-                error: _ => this.iexSandboxApiKey.isValid = false
-            });
+        this.iexSandboxApiKey.verify(this._http, this._pathBuilder)
     }
 
     public saveKeys() {

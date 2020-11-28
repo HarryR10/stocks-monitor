@@ -1,4 +1,4 @@
-import {ApiKey} from "../models/apiKey";
+import {ApiKey} from "../models/api-key";
 
 export class ApiKeyNotLoadError extends Error {
     constructor(message,
