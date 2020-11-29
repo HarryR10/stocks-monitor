@@ -1,6 +1,8 @@
 import {ApiKey} from "./api-key";
 import {HttpClient} from "@angular/common/http";
 import {PathBuilderService} from "../services/path-builder-service/path-builder.service";
+import {catchError, map} from "rxjs/operators";
+import {throwError} from "rxjs";
 
 export class IexSandboxApiKey extends ApiKey {
     constructor(keyName: string,
@@ -9,12 +11,28 @@ export class IexSandboxApiKey extends ApiKey {
         super(keyName, keyDescription, keyValue);
     }
 
+    // public verify(http: HttpClient, pathBuilder: PathBuilderService) {
+    //     return http.get(pathBuilder
+    //         .iexSearch("IBM", this.keyValue))
+    //         .subscribe({
+    //             next: _ => this.isValid = true,
+    //             error: _ => this.isValid = false
+    //         });
+    // }
+
     public verify(http: HttpClient, pathBuilder: PathBuilderService) {
-        http.get(pathBuilder
+        this.isValid = false;
+        return http.get(pathBuilder
             .iexSearch("IBM", this.keyValue))
-            .subscribe({
-                next: _ => this.isValid = true,
-                error: _ => this.isValid = false
-            });
+            .pipe(
+                map(_ => {
+                    this.isValid = true;
+                    // return this
+                }),
+                // catchError((err) => {
+                //     this.isValid = false
+                //     return throwError(err);
+                // })
+            );
     }
 }

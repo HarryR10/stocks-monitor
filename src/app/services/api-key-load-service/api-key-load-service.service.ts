@@ -5,18 +5,20 @@ import {ApiKey} from "../../models/api-key";
 import {AlphaVantageApiKey} from "../../models/alpha-vantage-api-key";
 import {IexSandboxApiKey} from "../../models/iex-sandbox-api-key";
 import {IexApiKey} from "../../models/iex-api-key";
+import {ErrorHandlerService} from "../error-handler-service/error-handler.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiKeyLoadServiceService {
+    constructor(private _errHandler: ErrorHandlerService) {
+    }
 
     public saveUserApiKey(key: ApiKey): void {
         localStorage.setItem(key.keyName, key.keyValue);
     }
 
-    public loadUserApiKey(key: ApiKey, action: Function = () => {
-    }) {
+    public loadUserApiKey(key: ApiKey) {
         const handler = (key) => {
             let result = localStorage.getItem(key.keyName);
 
@@ -30,7 +32,7 @@ export class ApiKeyLoadServiceService {
         try {
             key.keyValue = handler(key);
         } catch (e) {
-            action(e);
+            this._errHandler.handleError(e);
         }
     }
 }
