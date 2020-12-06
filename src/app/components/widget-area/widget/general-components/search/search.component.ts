@@ -1,9 +1,8 @@
 import {Component, Injector, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {FormControl} from "@angular/forms";
-import {debounceTime} from "rxjs/operators";
+import {debounceTime, map, switchMap} from "rxjs/operators";
 import {Company} from "../../chart-widget/models/company";
-import {AlphaVantageResponseReader} from "../../../../../utils/alpha-vantage-response-reader";
 import {PathBuilderService} from "../../../../../services/path-builder-service/path-builder.service";
 import {KeysKeeperService} from "../../../../../services/keys-keeper-service/keys-keeper.service";
 
@@ -22,6 +21,8 @@ export class SearchComponent implements OnInit {
     public loading: boolean = false;
 
     private _searchResult: Array<Company>;
+    private _tempSearchResult: Array<Company>;
+
     public get searchResult(): Array<Company> {
         return this._searchResult;
     }
@@ -43,51 +44,55 @@ export class SearchComponent implements OnInit {
 
 
     ngOnInit(): void {
-
-        // this.searchControl = new FormControl('IBM');        //вторым параметром - валидаторы
-        // this.searchControl.valueChanges.subscribe((value) => console.log(value));       //изменения значения
-        // this.searchControl.statusChanges.subscribe((status) => console.log(status));    //ошибки
-        //
-        // console.log(this.searchControl.value);      //snapshot значения на текущий момент, не реактивный
-        // //searchControl.value подходит для создания валидаторов (синхронных)
-        // //searchControl.valid
-        // //searchControl.errors
-
         this.load();
         this.searchControl.setValue('tencent');
     }
 
-    //TODO: поменять на switchMap 2й
     private load() {
         this.searchControl = new FormControl();
+
         this.searchControl.valueChanges
-            .pipe(debounceTime(1000))
-            .subscribe((value) => {
-                this._http.get(this._pathBuilder.alphaVantageSearch(value, this._keys.alphaVantageApiKey.keyValue))
-                    .subscribe(result => {
-                        let reader = new AlphaVantageResponseReader(result);
-                        if (!reader.isOkResponse) {
-                            alert(reader.message);
-                            return;
+            .pipe(
+                debounceTime(1000),
+                switchMap(value => {
+                    return this._http
+                        .get(this._pathBuilder.alphaVantageSearch(value, this._keys.alphaVantageApiKey.keyValue))
+                }),
+                switchMap(companies => {
+                    this._tempSearchResult =
+                        this.resultBuilder(Array.from(companies['bestMatches']));
+                    return this._http
+                        .get(this._pathBuilder.iexSearch(
+                            this.searchControl.value,
+                            this._keys.iexSandboxApiKey.keyValue));
+                }),
+                map(iexCompanies => {
+                    let result = new Array<Company>();
+                    this._tempSearchResult.forEach(i => {
+                        for (let company of (iexCompanies as Array<any>)) {
+                            if (i.symbol === company.symbol) {
+                                result.push(i);
+                            }
                         }
-                        this._searchResult = this.searchResultBuilder(result);
-                        this.selectedCompany = this._searchResult[0];
                     })
-            });
+                    return result;
+                    // this._searchResult = result;
+                    //TODO: не работает!
+                    // for (let company in iexCompanies) {
+                    //     this._tempSearchResult.forEach((i) => {
+                    //         if (i.symbol === company.symbol) {
+                    //             result.push(i);
+                    //         }
+                    //     })
+                    // }
+                })
+            ).subscribe(result => this._searchResult = result)
     }
 
-    // private pathBuilder(value: string) {
-    //
-    //     let params: HttpParams = new HttpParams()
-    //         .set("function", "SYMBOL_SEARCH")
-    //         .set("apikey", this._env.get(STOCKS_API_KEY))
-    //         .set("keywords", value);
-    //     return `${sources.alphaVantage}query?${params.toString()}`;
-    // }
-
-    private searchResultBuilder(companies: Object): Array<Company> {
+    //TODO: ???
+    private resultBuilder(companies: Array<any>): Array<Company> {
         let result = new Array<Company>();
-        for (let i of companies['bestMatches']) {
+        for (let i of companies) {
             result.push(new Company(i));
         }
         return result;
@@ -95,9 +100,19 @@ export class SearchComponent implements OnInit {
 
     public useChosenCompany(company: Company) {
         this.loading = true;
-        this.chooseSymbol.emit(company);
-        this.renderComponent.emit(false);
-        this.loading = false;
-
+        this._http.get(this._pathBuilder.iexIntraday(
+            company.symbol,
+            this._keys.iexSandboxApiKey.keyValue,
+            true))
+            .subscribe(result => {
+                if ((result as Array<any>).length === 0) {
+                    //TODO: любое другое оповещение
+                    alert('Not found trade data!')
+                } else {
+                    this.chooseSymbol.emit(company);
+                    this.renderComponent.emit(false);
+                }
+                this.loading = false;
+            });
     }
 }
