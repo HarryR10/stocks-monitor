@@ -9,6 +9,6 @@ export class ErrorHandlerService {
     }
 
     public handleError(error: Error) {
-        alert(error.message);
+        console.log(error.message);
     }
 }

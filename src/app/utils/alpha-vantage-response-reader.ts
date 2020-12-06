@@ -1,3 +1,4 @@
+//TODO: remove or to service
 export class AlphaVantageResponseReader {
     public isOkResponse: boolean;
     public message: string;

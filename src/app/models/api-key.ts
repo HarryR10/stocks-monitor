@@ -3,7 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {PathBuilderService} from "../services/path-builder-service/path-builder.service";
 import {Observable} from "rxjs";
 
-
+@Injectable({
+    providedIn: "root"
+})
 export abstract class ApiKey {
 
     public isValid: boolean;

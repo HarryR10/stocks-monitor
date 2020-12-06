@@ -2,7 +2,6 @@ import {Component, EventEmitter, Injector, Input, OnInit, Output} from '@angular
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Company} from "../models/company";
 import {PathBuilderService} from "../../../../../services/path-builder-service/path-builder.service";
-import {ALPHA_VANTAGE_API_SOURCE} from "../../../../../app-injection-tokens";
 import {KeysKeeperService} from "../../../../../services/keys-keeper-service/keys-keeper.service";
 
 @Component({
@@ -27,9 +26,7 @@ export class ChartComponent implements OnInit {
     }
 
     public downloadCsv() {
-        //TODO: изменить логику в соответствии с закоментированной строкой
         this.loading = true;
-        // this._http.get(this.pathBuilder(this.currentCompany.symbol, 'csv'),
         this._http.get(this._pathBuilder.iexIntradayCsvDownload(this.currentCompany.symbol, this._keys.iexApiKey.keyValue),
             {responseType: 'blob'})
             .subscribe(
@@ -44,19 +41,6 @@ export class ChartComponent implements OnInit {
             );
 
     }
-
-    // private pathBuilder(symbol: string, datatype: string = 'json') {
-    //     let source = this._env.get(ALPHA_VANTAGE_API_SOURCE);
-    //
-    //     let params: HttpParams = new HttpParams()
-    //         .set("function", "TIME_SERIES_INTRADAY")
-    //         .set("symbol", symbol)
-    //         .set("interval", "5min")
-    //         // .set("apikey", this._env.get("demo"))
-    //         .set("apikey", "demo")
-    //         .set("datatype", datatype)
-    //     return `${source}query?${params.toString()}`;
-    // }
 
     public backToSearch() {
         this.renderComponent.emit(true);

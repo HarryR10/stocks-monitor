@@ -6,9 +6,6 @@ import {ApiKeyLoadServiceService} from "../api-key-load-service/api-key-load-ser
 import {ApiKeyNotLoadError} from "../../errors/api-key-not-load-error";
 import {HttpClient} from "@angular/common/http";
 import {PathBuilderService} from "../path-builder-service/path-builder.service";
-import {from, Observable, of, Subscribable, Subscriber, Subscription} from "rxjs";
-import {map, pluck, switchMap} from "rxjs/operators";
-import {ApiKey} from "../../models/api-key";
 
 @Injectable({
     providedIn: 'root'
@@ -38,31 +35,6 @@ export class KeysKeeperService {
         this.alphaVantageApiKey.verify(this._http, this._pathBuilder).subscribe();
         this.iexApiKey.verify(this._http, this._pathBuilder).subscribe();
         this.iexSandboxApiKey.verify(this._http, this._pathBuilder).subscribe();
-
-
-        //TODO: обработка ошибок - не доходит до финального switchMap после ошибки?
-        //
-        // let al = this.alphaVantageApiKey.verify(this._http, this._pathBuilder);
-        // let ie = this.iexApiKey.verify(this._http, this._pathBuilder);
-        // let ies = this.iexSandboxApiKey.verify(this._http, this._pathBuilder);
-        //
-        // return al.pipe(
-        //     // map(r => this.alphaVantageApiKey.isValid = r.isValid),
-        //
-        //     switchMap(() => ie),
-        //     // map(r => this.iexApiKey.isValid = r),
-        //
-        //     switchMap(() => ies),
-        //     // map(r => this.iexSandboxApiKey.isValid = r.isValid)
-        // )
-
-
-        // TODO: не работает!
-        // const alpha = this.alphaVantageApiKey.verify(this._http, this._pathBuilder);
-        // const iex = this.iexApiKey.verify(this._http, this._pathBuilder);
-        // const iexSb = this.iexSandboxApiKey.verify(this._http, this._pathBuilder);
-        //
-        // return of(alpha, iex, iexSb);
     }
 
     public saveKeys() {
