@@ -16,24 +16,9 @@ export class KeysGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-        // let al = this._keys.al$.pipe(
-        //     pluck("isValid"),
-        //     map(r => console.log("al " + r)),
-        //
-        //     switchMap(() => this._keys.ie$),
-        //     pluck("isValid"),
-        //     map(r => console.log("ie " + r)),
-        //
-        //     switchMap(() => this._keys.ies$),
-        //     pluck("isValid"),
-        //     map(r => console.log("ies " + r))
-        // ).subscribe();
-
-
         if (this._keys.alphaVantageApiKey.keyValue
             && this._keys.iexApiKey.keyValue
             && this._keys.iexSandboxApiKey.keyValue) {
-            console.log("checked")
             return true;
         } else {
             return this._router.navigate(['about'])
