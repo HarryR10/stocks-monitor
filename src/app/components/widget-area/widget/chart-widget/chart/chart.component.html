@@ -6,27 +6,28 @@
                         layout-chart-widget__company-name--desktop-font-size
                         general--bold">{{currentCompany.symbol}}
         </div>
-        <div class="css-icon-up-arrow
+        <div *ngIf="isRise">
+            <div class="css-icon-up-arrow
                             layout-chart-widget__company-today-conversion-arrow"></div>
+        </div>
+        <div *ngIf="!isRise">
+            <div class="css-icon-down-arrow
+                            layout-chart-widget__company-today-conversion-arrow"></div>
+        </div>
         <div class="layout-chart-widget__company-today-conversion-cents">{{difference}}</div>
     </div>
 
     <div class="layout-chart-widget__company-index
                     layout-chart-widget__company-index--right-corner">
         <time class="layout-chart-widget__date-last-value
-                         layout-chart-widget__date-last-value--desktop-font-size"
-              datetime="2020-10-13 00:00">{{today}}
+                         layout-chart-widget__date-last-value--desktop-font-size">{{today}}
         </time>
     </div>
 
     <div class="layout-chart-widget__chart
                     layout-chart-widget__chart--center">
         <div>{{currentCompany.name}}</div>
-
-        <!--        <div *ngIf="data !== undefined || data !== null ">-->
-        <!--        <div *ngIf="(data !== undefined || data !== null) ? buildChart(data) : false">-->
         <div class="chart-area"></div>
-        <!--    </div>-->
 
     </div>
     <button class="layout-chart-widget__action

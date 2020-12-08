@@ -1,9 +1,8 @@
 import {Component, EventEmitter, Injector, Input, OnInit, Output} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Company} from "../models/company";
 import {PathBuilderService} from "../../../../../services/path-builder-service/path-builder.service";
 import {KeysKeeperService} from "../../../../../services/keys-keeper-service/keys-keeper.service";
-import {map, switchMap} from "rxjs/operators";
 import * as d3 from "d3";
 import uid from "@observablehq/stdlib/src/dom/uid"
 
@@ -20,6 +19,7 @@ export class ChartComponent implements OnInit {
     public loading: boolean = false;
     public difference: number;
     public today: string;
+    public isRise = false;
 
     public data: Array<Object>;
 
@@ -61,27 +61,30 @@ export class ChartComponent implements OnInit {
             .get(this._pathBuilder.iexIntraday(
                 this.currentCompany.symbol,
                 this._keys.iexApiKey.keyValue))
-            .pipe(
-                map(result => {
-                    this.today = result[0]['date'];
-                    let array = new Array<Object>();
-                    (result as Array<Object>).forEach(i => {
-                        //TODO: как вариант - регулярное выражение
-                        let time = i['label'];
-                        if (time.indexOf(':') === -1) {
-                            time = time.replace(" ", ":00 ");
-                        }
+            .subscribe(result => {
+                this.today = result[0]['date'];
 
-                        array.push({
-                            "time": new Date(`${i['date']}:${time}`),
-                            "volume": i['volume']
-                        })
+                let array = new Array<Object>();
+
+                (result as Array<Object>).forEach(i => {
+                    let time = i['label'];
+                    if (time.indexOf(':') === -1) {
+                        time = time.replace(" ", ":00 ");
+                    }
+
+                    array.push({
+                        "time": new Date(`${i['date']}:${time}`),
+                        "volume": i['volume']
                     })
-                    this.data = array;
-                    console.log(array)
-                    this.buildChart(this.data)
-                }),
-            ).subscribe()
+                })
+                this.data = array;
+                if ((array[array.length - 1]["volume"] - array[0]["volume"]) >= 0) {
+                    this.isRise = true
+                }
+                this.difference = array[array.length - 1]["volume"] - array[0]["volume"];
+                console.log(this.data)
+                this.buildChart(this.data)
+            })
     }
 
     public buildChart(data) {
@@ -115,6 +118,7 @@ export class ChartComponent implements OnInit {
             return d3.area()
                 .curve(d3.curveStepAfter)
                 .x(d => x(d.time))
+                .y0(height - margin.bottom)
                 .y1(d => y(d.volume))
                 (data)
         }

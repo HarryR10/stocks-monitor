@@ -15,7 +15,7 @@
     background-color: $widget-action-search-background-color
     border-radius: 50px / 50px
     padding: 7px 10px 10px 10px
-    margin: 5px
+    margin-top: 30px
 
 
   &__field
@@ -24,7 +24,6 @@
     border: none
     padding: 7px 7px 10px 7px
 
-  //TODO: проблема с "поднятием" кнопки, как layout-chart-widget__action
   &__btn:hover
     box-shadow: 0 0px 20px $widget-shadow-color
 
@@ -33,8 +32,16 @@
   &__btn--desktop-font-size
     font-size: 32px
 
+.search-result
+  display: flex
+  justify-content: space-around
+  align-items: center
+  flex-direction: column
+
 //https://css-tricks.com/complete-guide-table-element/
 .tab
+  width: 100%
+
   tr:nth-child(odd)
     background: $widget-shadow-color
 

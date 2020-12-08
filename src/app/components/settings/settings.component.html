@@ -1,38 +1,40 @@
-<form class="">
+<form class="settings
+general--font-color
+general--font-type">
 
     <div class="">
-        <label for="AVantageKey" class="">Your Alpha Vantage API key:</label>
-        <input type="text" class="" id="AVantageKey"
+        <label for="AVantageKey" class="general--bold">Your Alpha Vantage API key:</label>
+        <input class="settings__field" type="text" id="AVantageKey"
                (focusout)="verifyAlphaVantageKey().subscribe()" required
                [(ngModel)]="alphaVantageApiKey.keyValue" name="AVantageKey"
                [disabled]="saving">
         <div>
             <div *ngIf="alphaVantageApiKey.isValid">Correct!</div>
-            <div *ngIf="!alphaVantageApiKey.isValid">Key isn't correct!</div>
+            <div class="settings__wrong-key" *ngIf="!alphaVantageApiKey.isValid">Key isn't correct!</div>
         </div>
     </div>
 
     <div class="">
-        <label for="iexKey" class="">Your iex cloud API key:</label>
-        <input type="text" class="" id="iexKey"
+        <label for="iexKey" class="general--bold ">Your iex cloud API key:</label>
+        <input class="settings__field" type="text" id="iexKey"
                (focusout)="verifyIexApiKey().subscribe()" required
                [(ngModel)]="iexApiKey.keyValue" name="iexKey"
                [disabled]="saving">
         <div>
             <div *ngIf="iexApiKey.isValid">Correct!</div>
-            <div *ngIf="!iexApiKey.isValid">Key isn't correct!</div>
+            <div class="settings__wrong-key" *ngIf="!iexApiKey.isValid">Key isn't correct!</div>
         </div>
     </div>
 
     <div class="">
-        <label for="iexSandboxKey" class="">Your sandbox iex cloud API key:</label>
-        <input type="text" class="" id="iexSandboxKey"
+        <label for="iexSandboxKey" class="general--bold ">Your sandbox iex cloud API key:</label>
+        <input class="settings__field" type="text" id="iexSandboxKey"
                (focusout)="verifyIexSandboxApiKey().subscribe()" required
                [(ngModel)]="iexSandboxApiKey.keyValue" name="iexSandboxKey"
                [disabled]="saving">
         <div>
             <div *ngIf="iexSandboxApiKey.isValid">Correct!</div>
-            <div *ngIf="!iexSandboxApiKey.isValid">Key isn't correct!</div>
+            <div class="settings__wrong-key" *ngIf="!iexSandboxApiKey.isValid">Key isn't correct!</div>
         </div>
     </div>
 
@@ -45,7 +47,3 @@
         {{messageForUser}}
     </div>
 </form>
-
-<!--            [disabled]="!(iexSandboxApiKey.isValid-->
-<!--        && iexApiKey.isValid-->
-<!--        && alphaVantageApiKey.isValid)"-->
