@@ -21,7 +21,7 @@ export class ChartComponent implements OnInit {
     public difference: number;
     public today: string;
 
-    public data = new Array<Object>();
+    public data: Array<Object>;
 
     constructor(private _http: HttpClient,
                 private _env: Injector,
@@ -64,6 +64,7 @@ export class ChartComponent implements OnInit {
             .pipe(
                 map(result => {
                     this.today = result[0]['date'];
+                    let array = new Array<Object>();
                     (result as Array<Object>).forEach(i => {
                         //TODO: как вариант - регулярное выражение
                         let time = i['label'];
@@ -71,28 +72,29 @@ export class ChartComponent implements OnInit {
                             time = time.replace(" ", ":00 ");
                         }
 
-                        this.data.push({
+                        array.push({
                             "time": new Date(`${i['date']}:${time}`),
                             "volume": i['volume']
                         })
                     })
-                    // console.log(this.data)
-                    // this.buildChart(this.data)
+                    this.data = array;
+                    console.log(array)
+                    this.buildChart(this.data)
                 }),
             ).subscribe()
     }
 
-    private buildChart(data) {
+    public buildChart(data) {
         const margin = ({top: 20, right: 20, bottom: 30, left: 30});
         const width = 600;
-        const height = 100;
+        const height = 400;
 
         const x = d3.scaleUtc()
             .domain(d3.extent(data, d => d.time))
             .range([margin.left, width - margin.right])
 
         const y = d3.scaleLinear()
-            .domain([0, d3.max(data, d => d.volume)]).nice()
+            .domain([0, d3.max(data, d => +d.volume)]).nice()
             .range([height - margin.bottom, margin.top])
 
         const xAxis = (g, x) => g
@@ -109,14 +111,16 @@ export class ChartComponent implements OnInit {
                 .attr("font-weight", "bold")
                 .text(data.y))
 
-        const area = (data, x) =>
-            d3.area()
+        const area = (data, x) => {
+            return d3.area()
                 .curve(d3.curveStepAfter)
                 .x(d => x(d.time))
                 .y1(d => y(d.volume))
                 (data)
+        }
 
-        const chart = () => {
+
+        const chart = function () {
             const zoom = d3.zoom()
                 .scaleExtent([1, 32])
                 .extent([[margin.left, 0], [width - margin.right, height]])
@@ -129,7 +133,7 @@ export class ChartComponent implements OnInit {
                 gx.call(xAxis, xz);
             }
 
-            const svg = d3.select("body.one").append("svg")
+            const svg = d3.select("div.chart-area").append("svg")
                 .attr("viewBox", [0, 0, width, height]);
 
             const clip = uid("clip");
@@ -141,8 +145,8 @@ export class ChartComponent implements OnInit {
                 .attr("y", margin.top)
                 .attr("width", width - margin.left - margin.right)
                 .attr("height", height - margin.top - margin.bottom)
-                .attr("rx", 15)
-                .attr("ry", 15)
+            // .attr("rx", 15)
+            // .attr("ry", 15)
 
             const path = svg.append("path")
                 .attr("clip-path", clip)

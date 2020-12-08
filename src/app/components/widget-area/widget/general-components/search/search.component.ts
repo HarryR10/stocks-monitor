@@ -76,15 +76,6 @@ export class SearchComponent implements OnInit {
                         }
                     })
                     return result;
-                    // this._searchResult = result;
-                    //TODO: не работает!
-                    // for (let company in iexCompanies) {
-                    //     this._tempSearchResult.forEach((i) => {
-                    //         if (i.symbol === company.symbol) {
-                    //             result.push(i);
-                    //         }
-                    //     })
-                    // }
                 })
             ).subscribe(result => this._searchResult = result)
     }
@@ -107,7 +98,7 @@ export class SearchComponent implements OnInit {
             .subscribe(result => {
                 if ((result as Array<any>).length === 0) {
                     //TODO: любое другое оповещение
-                    alert('Not found trade data!')
+                    console.log('Not found trade data!')
                 } else {
                     this.chooseSymbol.emit(company);
                     this.renderComponent.emit(false);

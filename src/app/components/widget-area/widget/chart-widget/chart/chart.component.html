@@ -22,7 +22,12 @@
     <div class="layout-chart-widget__chart
                     layout-chart-widget__chart--center">
         <div>{{currentCompany.name}}</div>
+
+        <!--        <div *ngIf="data !== undefined || data !== null ">-->
+        <!--        <div *ngIf="(data !== undefined || data !== null) ? buildChart(data) : false">-->
         <div class="chart-area"></div>
+        <!--    </div>-->
+
     </div>
     <button class="layout-chart-widget__action
             layout-chart-widget__download-btn
