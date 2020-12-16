@@ -5,6 +5,7 @@ import {PathBuilderService} from "../../../../../services/path-builder-service/p
 import {KeysKeeperService} from "../../../../../services/keys-keeper-service/keys-keeper.service";
 import * as d3 from "d3";
 import uid from "@observablehq/stdlib/src/dom/uid"
+import uidModified from "../../../../../utils/uidModified"
 
 @Component({
     selector: 'app-chart',
@@ -12,10 +13,10 @@ import uid from "@observablehq/stdlib/src/dom/uid"
     styleUrls: ['./chart.component.sass']
 })
 export class ChartComponent implements OnInit {
-
     @Input() public currentCompany: Company;
     @Output() public renderComponent = new EventEmitter<boolean>();
 
+    public chartUid: string;
     public loading: boolean = false;
     public difference: number;
     public today: string;
@@ -27,6 +28,7 @@ export class ChartComponent implements OnInit {
                 private _env: Injector,
                 private _pathBuilder: PathBuilderService,
                 private _keys: KeysKeeperService) {
+        this.chartUid = uidModified("chart");
     }
 
     ngOnInit(): void {
@@ -41,7 +43,7 @@ export class ChartComponent implements OnInit {
             .subscribe(
                 (blob) => {
                     let link = document.createElement('a');
-                    link.download = `${this.currentCompany.symbol}_TIME_SERIES_INTRADAY`;
+                    link.download = `${this.currentCompany.symbol}_TIME_SERIES_INTRADAY.csv`;
                     link.href = URL.createObjectURL(new Blob([blob], {type: "text/csv"}));
                     link.click();
                     URL.revokeObjectURL(link.href);
@@ -88,6 +90,8 @@ export class ChartComponent implements OnInit {
     }
 
     public buildChart(data) {
+
+        const chartUid = this.chartUid;
         const margin = ({top: 20, right: 20, bottom: 30, left: 30});
         const width = 600;
         const height = 400;
@@ -137,7 +141,7 @@ export class ChartComponent implements OnInit {
                 gx.call(xAxis, xz);
             }
 
-            const svg = d3.select("div.chart-area").append("svg")
+            const svg = d3.select(`#${chartUid}`).append("svg")
                 .attr("viewBox", [0, 0, width, height]);
 
             const clip = uid("clip");

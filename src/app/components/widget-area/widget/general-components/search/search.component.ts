@@ -1,10 +1,11 @@
 import {Component, Injector, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {FormControl} from "@angular/forms";
-import {debounceTime, map, switchMap} from "rxjs/operators";
+import {catchError, debounceTime, map, switchMap} from "rxjs/operators";
 import {Company} from "../../chart-widget/models/company";
 import {PathBuilderService} from "../../../../../services/path-builder-service/path-builder.service";
 import {KeysKeeperService} from "../../../../../services/keys-keeper-service/keys-keeper.service";
+import {pipe, throwError} from "rxjs";
 
 
 @Component({
@@ -13,10 +14,12 @@ import {KeysKeeperService} from "../../../../../services/keys-keeper-service/key
     templateUrl: './search.component.html'
 })
 export class SearchComponent implements OnInit {
+    @Input() public symbol
 
     @Output() public chooseSymbol = new EventEmitter<Company>();
     @Output() public renderComponent = new EventEmitter<boolean>();
 
+    public msg: string;
     public searchControl: FormControl;
     public loading: boolean = false;
 
@@ -45,7 +48,7 @@ export class SearchComponent implements OnInit {
 
     ngOnInit(): void {
         this.load();
-        this.searchControl.setValue('tencent');
+        this.searchControl.setValue(this.symbol);
     }
 
     private load() {
@@ -59,6 +62,9 @@ export class SearchComponent implements OnInit {
                         .get(this._pathBuilder.alphaVantageSearch(value, this._keys.alphaVantageApiKey.keyValue))
                 }),
                 switchMap(companies => {
+                    if (companies['bestMatches'] === undefined) {
+                        this.msg = "Exceeded the limit of requests per minute! Please, refresh this page..."
+                    }
                     this._tempSearchResult =
                         this.resultBuilder(Array.from(companies['bestMatches']));
                     return this._http
@@ -95,10 +101,18 @@ export class SearchComponent implements OnInit {
             company.symbol,
             this._keys.iexSandboxApiKey.keyValue,
             true))
+            .pipe(
+                catchError((e) => {
+                    this.msg = e.value
+                    return throwError(e);
+                }))
             .subscribe(result => {
-                if ((result as Array<any>).length === 0) {
+                if ((result as Array<any>).length === 0
+                    || (result as Array<any>)[0]['volume'] === undefined) {
                     //TODO: любое другое оповещение
-                    console.log('Not found trade data!')
+                    this.msg = 'Not found trade data!'
+                } else if (result['status'] === 451) {
+                    this.msg = 'Unavailable For Legal Reasons!'
                 } else {
                     this.chooseSymbol.emit(company);
                     this.renderComponent.emit(false);

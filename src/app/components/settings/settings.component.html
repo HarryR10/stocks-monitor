@@ -4,7 +4,7 @@ general--font-type">
 
     <div class="">
         <label for="AVantageKey" class="general--bold">Your Alpha Vantage API key:</label>
-        <input class="settings__field" type="text" id="AVantageKey"
+        <input class="settings__field" type="password" id="AVantageKey"
                (focusout)="verifyAlphaVantageKey().subscribe()" required
                [(ngModel)]="alphaVantageApiKey.keyValue" name="AVantageKey"
                [disabled]="saving">
@@ -16,7 +16,7 @@ general--font-type">
 
     <div class="">
         <label for="iexKey" class="general--bold ">Your iex cloud API key:</label>
-        <input class="settings__field" type="text" id="iexKey"
+        <input class="settings__field" type="password" id="iexKey"
                (focusout)="verifyIexApiKey().subscribe()" required
                [(ngModel)]="iexApiKey.keyValue" name="iexKey"
                [disabled]="saving">
@@ -28,7 +28,7 @@ general--font-type">
 
     <div class="">
         <label for="iexSandboxKey" class="general--bold ">Your sandbox iex cloud API key:</label>
-        <input class="settings__field" type="text" id="iexSandboxKey"
+        <input class="settings__field" type="password" id="iexSandboxKey"
                (focusout)="verifyIexSandboxApiKey().subscribe()" required
                [(ngModel)]="iexSandboxApiKey.keyValue" name="iexSandboxKey"
                [disabled]="saving">

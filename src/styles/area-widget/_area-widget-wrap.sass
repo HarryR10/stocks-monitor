@@ -1,15 +1,19 @@
 @import "src/styles/colors_variables"
 
+
 .area-widget-wrap
   display: grid
   gap: 30px 30px
   align-items: normal
   padding: 40px 70px 30px 70px
-  overflow-x: hidden
-
-  &--grid-horizontal
-    grid-template-columns: 1fr 1fr
+  //overflow-x: auto
+  grid-template-columns: 1fr 1fr
 
 //&--grid-vertical
   //grid-template-columns: 1fr
+
+@media screen and (max-width: 1024px)
+  .area-widget-wrap
+    grid-template-columns: none
+    padding: 50px
 

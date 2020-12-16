@@ -16,7 +16,8 @@
 
 <app-search (chooseSymbol)="setCurrentCompany($event)"
             (renderComponent)="setShowSearchComponent($event)"
-            *ngIf="showSearchComponent"></app-search>
+            *ngIf="showSearchComponent"
+            [symbol]="symbol"></app-search>
 <app-chart (renderComponent)="setShowSearchComponent($event)"
            *ngIf="!showSearchComponent"
            [currentCompany]="currentCompany"></app-chart>

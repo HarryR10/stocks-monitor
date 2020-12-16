@@ -1,13 +1,6 @@
-<div class="area-widget-wrap
-            area-widget-wrap--grid-horizontal">
-    <!--    <app-chart-widget class="layout-widget&#45;&#45;cell-widget-left"></app-chart-widget>-->
-    <!--    <app-chart-widget class="layout-widget&#45;&#45;cell-widget-right"></app-chart-widget>-->
-    <!--    <app-start-widget class="layout-widget&#45;&#45;cell-widget-left"></app-start-widget>-->
-
-    <!--    <div *ngFor="let i of [1,2,3]">-->
-    <!--        <app-chart-widget class="layout-widget&#45;&#45;cell-widget-right"></app-chart-widget>-->
-    <!--    </div>-->
-
+<!--<div class="area-widget-wrap-->
+<!--            area-widget-wrap&#45;&#45;grid-horizontal">-->
+<div class="area-widget-wrap">
     <ng-container *ngFor="let cell of getCells()" [ngSwitch]="cell.type.isStartWidget">
 
         <!--        TODO: раскомментить, -->
@@ -20,14 +13,14 @@
         <!--        TODO: поменять на false-->
         <ng-template [ngSwitchCase]="true">
             <app-widget [isCanBeClosed]="true" [isDark]="true">
+                <app-chart-widget [symbol]="'tencent'"></app-chart-widget>
+            </app-widget>
+        </ng-template>
+        <ng-template [ngSwitchCase]="true">
+            <app-widget [isCanBeClosed]="true" [isDark]="true" class="second">
                 <app-chart-widget [symbol]="'IBM'"></app-chart-widget>
             </app-widget>
         </ng-template>
-
-
-        <!--        <app-widget (loadstart)="chooseWidget(i.type)"></app-widget>-->
     </ng-container>
-
-
 </div>
 
